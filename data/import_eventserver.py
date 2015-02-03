@@ -56,15 +56,18 @@ def import_events(client):
       )
       count += 1
   """
-  print "User", 1 ,"views item", 2
-  client.create_event(
-    event="view",
-    entity_type="user",
-    entity_id=1,
-    target_entity_type="item",
-    target_entity_id=2
-  )
-  count += 1
+  # each user viewed all the items
+  for user_id in user_ids:
+    for item_id in item_ids:
+      print "User", user_id, "views items", item_id
+      client.create_event(
+        event="view",
+        entity_type="user",
+        entity_id=user_id,
+        target_entity_type="item",
+        target_entity_id=item_id
+      )
+      count += 1
 
   print "%s events are imported." % count
 
