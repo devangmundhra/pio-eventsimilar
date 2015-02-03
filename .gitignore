@@ -1,7 +1,22 @@
 data/sample_movielens_data.txt
 manifest.json
-.idea/*
-target/*
-project/target/*
-project/project/*
-pio.log
+.idea
+project/target
+project/project
+*.class
+*.log
+
+# sbt specific
+.cache/
+.history/
+.lib/
+dist/*
+target/
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/
+
+# Scala-IDE specific
+.scala_dependencies
+.worksheet
