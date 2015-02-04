@@ -42,8 +42,8 @@ def import_events(client):
     )
     count += 1
 
-  # each user randomly viewed 10 items
   """
+  # each user randomly viewed 10 items
   for user_id in user_ids:
     for viewed_item in random.sample(item_ids, 10):
       print "User", user_id ,"views item", viewed_item
@@ -55,6 +55,7 @@ def import_events(client):
         target_entity_id=viewed_item
       )
       count += 1
+  """
   """
   # each user viewed all the items
   for user_id in user_ids:
@@ -68,6 +69,18 @@ def import_events(client):
         target_entity_id=item_id
       )
       count += 1
+  """
+
+  # Add a single view event
+  print "User", 1, "views items", 2
+  client.create_event(
+    event="view",
+    entity_type="user",
+    entity_id=1,
+    target_entity_type="item",
+    target_entity_id=2
+  )
+  count += 1
 
   print "%s events are imported." % count
 

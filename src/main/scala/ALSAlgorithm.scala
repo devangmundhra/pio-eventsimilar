@@ -115,7 +115,6 @@ class ALSAlgorithm(val ap: ALSAlgorithmParams)
       }.reduceByKey(_ + _) // aggregate all view events of same user-item pair
       .map { case ((u, i), v) =>
         // MLlibRating requires integer index for user and item
-      println("DEBUG " + (u, i))
 
       MLlibRating(u, i, v)
       }
@@ -136,12 +135,6 @@ class ALSAlgorithm(val ap: ALSAlgorithmParams)
       blocks = -1,
       alpha = 1.0,
       seed = seed)
-
-    logger.info(s"DEBUG model complete rank ${m.rank} \n")
-    logger.info(s"DEBUG model complete ProdFeatures \n")
-    m.productFeatures.collect().foreach{case (u, v) => println(u + "-" + v.mkString(", "))}
-    logger.info(s"DEBUG model complete userFeatures \n")
-    m.userFeatures.collect().foreach{case (u, v) => println(u + "-" + v.mkString(", "))}
 
     new ALSModel(
       productFeatures = m.productFeatures,

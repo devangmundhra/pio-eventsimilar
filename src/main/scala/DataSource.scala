@@ -40,7 +40,7 @@ class DataSource(val dsp: DataSourceParams)
         }
       }
       (entityId, user)
-    }
+    }.cache()
 
     // create a RDD of (entityID, Item)
     val itemsRDD: RDD[(String, Item)] = eventsDb.aggregateProperties(
@@ -58,7 +58,7 @@ class DataSource(val dsp: DataSourceParams)
         }
       }
       (entityId, item)
-    }
+    }.cache()
 
     // get all "user" "view" "item" events
     val viewEventsRDD: RDD[ViewEvent] = eventsDb.find(
@@ -69,7 +69,6 @@ class DataSource(val dsp: DataSourceParams)
       targetEntityType = Some(Some("item")))(sc)
       // eventsDb.find() returns RDD[Event]
       .map { event =>
-      logger.info(s"DEBUG Event id " + event.eventId.get + " targetEntityId " + event.targetEntityId.get)
 
       val viewEvent = try {
           event.event match {
@@ -87,7 +86,7 @@ class DataSource(val dsp: DataSourceParams)
           }
         }
         viewEvent
-      }
+      }.cache()
 
     new TrainingData(
       users = usersRDD,
